@@ -2,7 +2,6 @@ package adotapet.api.shelter;
 
 import adotapet.api.pet.Pet;
 import adotapet.api.shelter.payload.ShelterForm;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,8 +27,7 @@ public class Shelter {
 
     private String email;
 
-    @OneToMany(mappedBy = "shelter", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonManagedReference("shelter_pets")
+    @OneToMany(mappedBy = "shelter", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Pet> pets;
 
     public Shelter(ShelterForm form) {

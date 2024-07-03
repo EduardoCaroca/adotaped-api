@@ -8,9 +8,9 @@ import adotapet.api.shelter.payload.ShelterForm;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -27,22 +27,20 @@ public class ShelterController {
     }
 
     @PostMapping
-    @Transactional
-    public ResponseEntity<String> register(@RequestBody @Valid ShelterForm form) {
-        service.register(form);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<ShelterDTO> register(@RequestBody @Valid ShelterForm form) {
+        ShelterDTO shelter = service.register(form);
+        return ResponseEntity.created(URI.create("/shelters/" + shelter.getId())).body(shelter);
     }
 
-    @GetMapping("/{idOrName}/pets")
-    public ResponseEntity<List<PetDTO>> listPets(@PathVariable String idOrName) {
-        return ResponseEntity.ok(service.listAllPets(idOrName));
+    @GetMapping("/{id}/pets")
+    public ResponseEntity<List<PetDTO>> listPets(@PathVariable Long id) {
+        return ResponseEntity.ok(service.listAllPets(id));
     }
 
-    @PostMapping("/{idOrName}/pets")
-    @Transactional
-    public ResponseEntity<String> registerPet(@PathVariable String idOrName, @RequestBody @Valid PetForm pet) {
-        service.registerPet(idOrName, pet);
-        return ResponseEntity.ok().build();
+    @PostMapping("/{id}/pets")
+    public ResponseEntity<PetDTO> registerPet(@PathVariable Long id, @RequestBody @Valid PetForm form) {
+        PetDTO pet = service.registerPet(id, form);
+        return ResponseEntity.created(URI.create("/pets/" + pet.getId())).body(pet);
     }
 
 }

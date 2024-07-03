@@ -11,9 +11,9 @@ public interface ShelterService {
 
     List<ShelterDTO> listAll();
 
-    void register(ShelterForm form);
+    ShelterDTO register(ShelterForm form);
 
-    List<PetDTO> listAllPets(String idOrName);
+    List<PetDTO> listAllPets(Long id);
 
-    void registerPet(String idOrName, PetForm form);
+    PetDTO registerPet(Long id, PetForm form);
 }
