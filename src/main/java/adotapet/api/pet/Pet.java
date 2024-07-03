@@ -4,7 +4,6 @@ import adotapet.api.adoption.Adoption;
 import adotapet.api.model.enums.PetType;
 import adotapet.api.pet.payload.PetForm;
 import adotapet.api.shelter.Shelter;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,12 +36,11 @@ public class Pet {
     private Float weight;
 
     private Boolean adopted;
-    @ManyToOne
-    @JsonBackReference("shelter_pets")
-    @JoinColumn(name = "shelter_id")
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private Shelter shelter;
-    @OneToOne(mappedBy = "pet")
-    @JsonBackReference("adoption_pets")
+
+    @OneToOne(mappedBy = "pet", cascade = CascadeType.ALL, optional = false)
     private Adoption adoption;
 
     public Pet(PetForm form) {
