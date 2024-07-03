@@ -6,8 +6,10 @@ CREATE TABLE pets (
       age INT NOT NULL,
       color VARCHAR(100) NOT NULL,
       weight DECIMAL(4,2) NOT NULL,
-      shelter_id BIGINT NOT NULL,
       adopted BOOLEAN NOT NULL,
-      PRIMARY KEY (id),
-      CONSTRAINT fk_pets_shelter_id FOREIGN KEY (shelter_id) REFERENCES shelters(id)
+      shelter_id BIGINT NULL,
+      CONSTRAINT pk_pets PRIMARY KEY (id)
 );
+
+ALTER TABLE pets
+    ADD CONSTRAINT FK_PETS_ON_SHELTER FOREIGN KEY (shelter_id) REFERENCES shelters (id);

@@ -10,3 +10,12 @@ CREATE TABLE adoptions (
    CONSTRAINT fk_adoptions_guardian_id FOREIGN KEY (guardian_id) REFERENCES guardians(id),
    CONSTRAINT fk_adoptions_pet_id FOREIGN KEY (pet_id) REFERENCES pets(id)
 );
+
+ALTER TABLE adoptions
+    ADD CONSTRAINT uc_adoptions_pet UNIQUE (pet_id);
+
+ALTER TABLE adoptions
+    ADD CONSTRAINT FK_adoptions_ON_GUARDIAN FOREIGN KEY (guardian_id) REFERENCES guardians (id);
+
+ALTER TABLE adoptions
+    ADD CONSTRAINT FK_adoptions_ON_PET FOREIGN KEY (pet_id) REFERENCES pets (id);
