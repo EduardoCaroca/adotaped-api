@@ -1,12 +1,11 @@
 package adotapet.api.guardian;
 
 import adotapet.api.adoption.Adoption;
+import adotapet.api.guardian.payload.GuardianForm;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -16,30 +15,34 @@ import java.util.Objects;
 @Table(name = "guardians")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Guardian {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @NotBlank
-    @Column(name = "name")
     private String name;
 
-    @NotBlank
-    @Pattern(regexp = "\\(?\\d{2}\\)?\\d?\\d{4}-?\\d{4}")
-    @Column(name = "phone")
     private String phone;
 
-    @NotBlank
-    @Email
-    @Column(name = "email")
     private String email;
 
     @OneToMany(mappedBy = "guardian", fetch = FetchType.EAGER)
     @JsonManagedReference("guardian_adoptions")
     private List<Adoption> adoptions;
+
+    public Guardian(GuardianForm form) {
+        this.name = form.getName();
+        this.phone = form.getPhone();
+        this.email = form.getEmail();
+    }
+
+    public void update(GuardianForm form) {
+        this.name = form.getName();
+        this.phone = form.getPhone();
+        this.email = form.getEmail();
+    }
 
     @Override
     public boolean equals(Object o) {

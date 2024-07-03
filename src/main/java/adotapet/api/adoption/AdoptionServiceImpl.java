@@ -1,13 +1,18 @@
 package adotapet.api.adoption;
 
+import adotapet.api.adoption.payload.AdoptionForm;
+import adotapet.api.guardian.Guardian;
+import adotapet.api.guardian.GuardianRepository;
 import adotapet.api.model.enums.AdoptionStatus;
 import adotapet.api.model.exceptions.BadRequestException;
+import adotapet.api.pet.Pet;
+import adotapet.api.pet.PetRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -16,28 +21,33 @@ import java.util.List;
 public class AdoptionServiceImpl implements AdoptionService {
 
     private final JavaMailSender emailSender;
-
     private final AdoptionRepository repository;
+    private final GuardianRepository guardianRepository;
+    private final PetRepository petRepository;
 
     @Override
-    public void request(Adoption adoption) {
-        if (adoption.getPet().getAdopted()) {
+    @Transactional
+    public void request(AdoptionForm form) {
+        Guardian guardian = guardianRepository.findById(form.getGuardianId()).orElseThrow(() -> new BadRequestException("Guardian not found!"));
+        Pet pet = petRepository.findById(form.getPetId()).orElseThrow(() -> new BadRequestException("Pet not found!"));
+
+        if (pet.getAdopted()) {
             throw new BadRequestException("Pet has already been adopted!");
         } else {
             List<Adoption> adoptions = repository.findAll();
             for (Adoption a : adoptions) {
-                if (a.getGuardian() == adoption.getGuardian() && a.getStatus() == AdoptionStatus.PENDING_EVALUATION) {
+                if (a.getGuardian() == guardian && a.getStatus() == AdoptionStatus.PENDING_EVALUATION) {
                     throw new BadRequestException("Guardian already has another adoption pending evaluation!");
                 }
             }
             for (Adoption a : adoptions) {
-                if (a.getPet() == adoption.getPet() && a.getStatus() == AdoptionStatus.PENDING_EVALUATION) {
+                if (a.getPet() == pet && a.getStatus() == AdoptionStatus.PENDING_EVALUATION) {
                     throw new BadRequestException("Pet is already awaiting evaluation for adoption!");
                 }
             }
             for (Adoption a : adoptions) {
                 int counter = 0;
-                if (a.getGuardian() == adoption.getGuardian() && a.getStatus() == AdoptionStatus.APPROVED) {
+                if (a.getGuardian() == guardian && a.getStatus() == AdoptionStatus.APPROVED) {
                     counter = counter + 1;
                 }
                 if (counter == 5) {
@@ -45,8 +55,9 @@ public class AdoptionServiceImpl implements AdoptionService {
                 }
             }
         }
-        adoption.setDate(LocalDateTime.now());
-        adoption.setStatus(AdoptionStatus.PENDING_EVALUATION);
+        Adoption adoption = new Adoption(form);
+        adoption.update(guardian);
+        adoption.update(pet);
         repository.save(adoption);
 
         SimpleMailMessage email = new SimpleMailMessage();
@@ -58,8 +69,10 @@ public class AdoptionServiceImpl implements AdoptionService {
     }
 
     @Override
-    public void approve(Adoption adoption) {
-        adoption.setStatus(AdoptionStatus.APPROVED);
+    @Transactional
+    public void approve(Long id) {
+        Adoption adoption = repository.findById(id).orElseThrow(() -> new BadRequestException("Adoption not found!"));
+        adoption.approve();
         repository.save(adoption);
 
         SimpleMailMessage email = new SimpleMailMessage();
@@ -71,8 +84,10 @@ public class AdoptionServiceImpl implements AdoptionService {
     }
 
     @Override
-    public void reject(Adoption adoption) {
-        adoption.setStatus(AdoptionStatus.REJECTED);
+    @Transactional
+    public void reject(Long id) {
+        Adoption adoption = repository.findById(id).orElseThrow(() -> new BadRequestException("Adoption not found!"));
+        adoption.reject();
         repository.save(adoption);
 
         SimpleMailMessage email = new SimpleMailMessage();

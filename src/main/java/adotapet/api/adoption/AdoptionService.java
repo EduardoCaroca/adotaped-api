@@ -1,11 +1,13 @@
 package adotapet.api.adoption;
 
+import adotapet.api.adoption.payload.AdoptionForm;
+
 public interface AdoptionService {
 
-    void request(Adoption adoption);
+    void request(AdoptionForm form);
 
-    void approve(Adoption adoption);
+    void approve(Long id);
 
-    void reject(Adoption adoption);
+    void reject(Long id);
 
 }

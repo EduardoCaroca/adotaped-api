@@ -1,16 +1,19 @@
 package adotapet.api.shelter;
 
-import adotapet.api.pet.Pet;
+import adotapet.api.pet.payload.PetDTO;
+import adotapet.api.pet.payload.PetForm;
+import adotapet.api.shelter.payload.ShelterDTO;
+import adotapet.api.shelter.payload.ShelterForm;
 
 import java.util.List;
 
 public interface ShelterService {
 
-    List<Shelter> listAll();
+    List<ShelterDTO> listAll();
 
-    void register(Shelter shelter);
+    void register(ShelterForm form);
 
-    List<Pet> listAllPets(String idOrName);
+    List<PetDTO> listAllPets(String idOrName);
 
-    void registerPet(String idOrName, Pet pet);
+    void registerPet(String idOrName, PetForm form);
 }

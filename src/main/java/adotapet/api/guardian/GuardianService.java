@@ -1,9 +1,11 @@
 package adotapet.api.guardian;
 
+import adotapet.api.guardian.payload.GuardianForm;
+
 public interface GuardianService {
 
-    void register(Guardian guardian);
+    void register(GuardianForm form);
 
-    void update(Guardian guardian);
-    
+    void update(Long id, GuardianForm form);
+
 }

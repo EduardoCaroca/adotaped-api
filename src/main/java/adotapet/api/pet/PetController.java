@@ -1,5 +1,6 @@
 package adotapet.api.pet;
 
+import adotapet.api.pet.payload.PetDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,8 +17,8 @@ public class PetController {
     private final PetService service;
 
     @GetMapping
-    public ResponseEntity<List<Pet>> listAllAvailable() {
-        List<Pet> available = service.listAllAvailable();
+    public ResponseEntity<List<PetDTO>> listAllAvailable() {
+        List<PetDTO> available = service.listAllAvailable();
         return ResponseEntity.ok(available);
     }
 
