@@ -1,13 +1,13 @@
-create table pets(
-    id bigint not null auto_increment,
-    tipo varchar(100) not null,
-    nome varchar(100) not null,
-    raca varchar(100) not null,
-    idade int not null,
-    cor varchar(100) not null,
-    peso decimal(4,2) not null,
-    abrigo_id bigint not null,
-    adotado boolean not null,
-    primary key(id),
-    constraint fk_pets_abrigo_id foreign key(abrigo_id) references abrigos(id)
+CREATE TABLE pets (
+      id BIGINT NOT NULL AUTO_INCREMENT,
+      type VARCHAR(100) NOT NULL,
+      name VARCHAR(100) NOT NULL,
+      breed VARCHAR(100) NOT NULL,
+      age INT NOT NULL,
+      color VARCHAR(100) NOT NULL,
+      weight DECIMAL(4,2) NOT NULL,
+      shelter_id BIGINT NOT NULL,
+      adopted BOOLEAN NOT NULL,
+      PRIMARY KEY (id),
+      CONSTRAINT fk_pets_shelter_id FOREIGN KEY (shelter_id) REFERENCES shelters(id)
 );

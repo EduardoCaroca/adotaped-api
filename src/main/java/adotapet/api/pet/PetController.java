@@ -1,7 +1,5 @@
-package adotapet.api.controller;
+package adotapet.api.pet;
 
-import adotapet.api.model.Pet;
-import adotapet.api.repository.PetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,15 +17,15 @@ public class PetController {
     private PetRepository repository;
 
     @GetMapping
-    public ResponseEntity<List<Pet>> listarTodosDisponiveis() {
+    public ResponseEntity<List<Pet>> listAllAvailable() {
         List<Pet> pets = repository.findAll();
-        List<Pet> disponiveis = new ArrayList<>();
+        List<Pet> available = new ArrayList<>();
         for (Pet pet : pets) {
-            if (pet.getAdotado() == false) {
-                disponiveis.add(pet);
+            if (!pet.getAdopted()) {
+                available.add(pet);
             }
         }
-        return ResponseEntity.ok(disponiveis);
+        return ResponseEntity.ok(available);
     }
 
 }

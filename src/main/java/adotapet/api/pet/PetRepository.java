@@ -1,6 +1,5 @@
-package adotapet.api.repository;
+package adotapet.api.pet;
 
-import adotapet.api.model.Pet;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PetRepository extends JpaRepository<Pet, Long> {
