@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface GuardianRepository extends JpaRepository<Guardian, Long> {
 
-    boolean existsByPhone(String phone);
+    boolean existsByPhoneOrEmail(String phone, String email);
 
     boolean existsByEmail(String email);
 
