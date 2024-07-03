@@ -1,36 +1,29 @@
 package adotapet.api.guardian;
 
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/guardians")
+@RequiredArgsConstructor
 public class GuardianController {
 
-    @Autowired
-    private GuardianRepository repository;
+    private final GuardianService service;
 
     @PostMapping
     @Transactional
     public ResponseEntity<String> register(@RequestBody @Valid Guardian guardian) {
-        boolean phoneAlreadyRegistered = repository.existsByPhone(guardian.getPhone());
-        boolean emailAlreadyRegistered = repository.existsByEmail(guardian.getEmail());
-
-        if (phoneAlreadyRegistered || emailAlreadyRegistered) {
-            return ResponseEntity.badRequest().body("Data already registered for another guardian!");
-        } else {
-            repository.save(guardian);
-            return ResponseEntity.ok().build();
-        }
+        service.register(guardian);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping
     @Transactional
     public ResponseEntity<String> update(@RequestBody @Valid Guardian guardian) {
-        repository.save(guardian);
+        service.update(guardian);
         return ResponseEntity.ok().build();
     }
 

@@ -1,30 +1,23 @@
 package adotapet.api.pet;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/pets")
+@RequiredArgsConstructor
 public class PetController {
 
-    @Autowired
-    private PetRepository repository;
+    private final PetService service;
 
     @GetMapping
     public ResponseEntity<List<Pet>> listAllAvailable() {
-        List<Pet> pets = repository.findAll();
-        List<Pet> available = new ArrayList<>();
-        for (Pet pet : pets) {
-            if (!pet.getAdopted()) {
-                available.add(pet);
-            }
-        }
+        List<Pet> available = service.listAllAvailable();
         return ResponseEntity.ok(available);
     }
 
