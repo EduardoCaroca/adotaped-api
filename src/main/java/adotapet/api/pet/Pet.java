@@ -64,7 +64,6 @@ public class Pet {
 
     public void update(Shelter shelter) {
         this.shelter = shelter;
-        shelter.getPets().add(this);
     }
 
     @Override
