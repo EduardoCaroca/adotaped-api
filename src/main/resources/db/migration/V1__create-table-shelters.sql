@@ -1,7 +1,8 @@
-CREATE TABLE shelters (
-      id BIGINT NOT NULL AUTO_INCREMENT,
-      name VARCHAR(100) NOT NULL UNIQUE,
-      phone VARCHAR(14) NOT NULL UNIQUE,
-      email VARCHAR(100) NOT NULL UNIQUE,
-      PRIMARY KEY(id)
+CREATE TABLE shelters
+(
+    id    BIGINT AUTO_INCREMENT NOT NULL,
+    name  VARCHAR(255)          NULL,
+    phone VARCHAR(255)          NULL,
+    email VARCHAR(255)          NULL,
+    CONSTRAINT pk_shelters PRIMARY KEY (id)
 );

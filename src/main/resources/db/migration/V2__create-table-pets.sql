@@ -1,14 +1,15 @@
-CREATE TABLE pets (
-      id BIGINT NOT NULL AUTO_INCREMENT,
-      type VARCHAR(100) NOT NULL,
-      name VARCHAR(100) NOT NULL,
-      breed VARCHAR(100) NOT NULL,
-      age INT NOT NULL,
-      color VARCHAR(100) NOT NULL,
-      weight DECIMAL(4,2) NOT NULL,
-      adopted BOOLEAN NOT NULL,
-      shelter_id BIGINT NULL,
-      CONSTRAINT pk_pets PRIMARY KEY (id)
+CREATE TABLE pets
+(
+    id         BIGINT AUTO_INCREMENT NOT NULL,
+    type       VARCHAR(255)          NULL,
+    name       VARCHAR(255)          NULL,
+    breed      VARCHAR(255)          NULL,
+    age        INT                   NULL,
+    color      VARCHAR(255)          NULL,
+    weight     FLOAT                 NULL,
+    adopted    BIT(1)                NULL,
+    shelter_id BIGINT                NULL,
+    CONSTRAINT pk_pets PRIMARY KEY (id)
 );
 
 ALTER TABLE pets
