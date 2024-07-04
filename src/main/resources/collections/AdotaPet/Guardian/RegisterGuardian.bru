@@ -1,0 +1,19 @@
+meta {
+  name: RegisterGuardian
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{url}}/guardians
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Eduardo Caroca",
+    "phone": "(61)91234-5678",
+    "email": "eduardocaroca@gmail.com"
+  }
+}

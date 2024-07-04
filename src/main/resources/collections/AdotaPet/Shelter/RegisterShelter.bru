@@ -1,0 +1,19 @@
+meta {
+  name: RegisterShelter
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{url}}/shelters
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "AdotaPet",
+    "phone": "(61)91234-5678",
+    "email": "eduardo@gmail.com"
+  }
+}

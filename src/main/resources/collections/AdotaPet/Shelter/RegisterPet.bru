@@ -1,0 +1,22 @@
+meta {
+  name: RegisterPet
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{url}}/shelters/1/pets
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "type": "DOG",
+    "name": "Mike",
+    "breed": "Pastor Alemão",
+    "age": 2,
+    "color": "Azul",
+    "weight": 5.25
+  }
+}

@@ -1,0 +1,19 @@
+meta {
+  name: UpdateGuardian
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{url}}/guardians/1
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Eduardo Caroca Monteiro Figueiredo",
+    "phone": "(61)91111-2222",
+    "email": "eduardocaroca@gmail.com"
+  }
+}
