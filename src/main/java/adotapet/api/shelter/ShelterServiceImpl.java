@@ -1,6 +1,6 @@
 package adotapet.api.shelter;
 
-import adotapet.api.model.exceptions.BadRequestException;
+import adotapet.api.commom.domain.config.exceptions.BadRequestException;
 import adotapet.api.pet.Pet;
 import adotapet.api.pet.PetRepository;
 import adotapet.api.pet.payload.PetDTO;

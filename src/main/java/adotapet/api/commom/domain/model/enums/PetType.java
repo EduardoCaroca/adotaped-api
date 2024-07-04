@@ -1,4 +1,4 @@
-package adotapet.api.model.enums;
+package adotapet.api.commom.domain.model.enums;
 
 public enum PetType {
     DOG,

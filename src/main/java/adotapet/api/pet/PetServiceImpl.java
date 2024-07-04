@@ -23,6 +23,7 @@ public class PetServiceImpl implements PetService {
                         .breed(pet.getBreed())
                         .age(pet.getAge())
                         .type(pet.getType())
+                        .adopted(pet.getAdopted())
                         .build())
                 .toList();
     }

@@ -1,6 +1,6 @@
 package adotapet.api.pet.payload;
 
-import adotapet.api.model.enums.PetType;
+import adotapet.api.commom.domain.model.enums.PetType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;

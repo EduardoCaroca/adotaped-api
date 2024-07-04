@@ -1,7 +1,7 @@
 package adotapet.api.pet;
 
 import adotapet.api.adoption.Adoption;
-import adotapet.api.model.enums.PetType;
+import adotapet.api.commom.domain.model.enums.PetType;
 import adotapet.api.pet.payload.PetForm;
 import adotapet.api.shelter.Shelter;
 import jakarta.persistence.*;
@@ -40,7 +40,7 @@ public class Pet {
     @ManyToOne(fetch = FetchType.LAZY)
     private Shelter shelter;
 
-    @OneToOne(mappedBy = "pet", cascade = CascadeType.ALL, optional = false)
+    @OneToOne(mappedBy = "pet", cascade = CascadeType.ALL)
     private Adoption adoption;
 
     public Pet(PetForm form) {

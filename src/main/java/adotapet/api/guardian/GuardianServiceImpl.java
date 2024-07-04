@@ -1,8 +1,8 @@
 package adotapet.api.guardian;
 
+import adotapet.api.commom.domain.config.exceptions.BadRequestException;
 import adotapet.api.guardian.payload.GuardianDTO;
 import adotapet.api.guardian.payload.GuardianForm;
-import adotapet.api.model.exceptions.BadRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

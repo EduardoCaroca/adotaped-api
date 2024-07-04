@@ -1,4 +1,4 @@
-package adotapet.api.model.exceptions;
+package adotapet.api.commom.domain.config.exceptions;
 
 public class BadRequestException extends RuntimeException {
 
