@@ -1,7 +1,6 @@
 package adotapet.api.adoption;
 
 import adotapet.api.adoption.payload.AdoptionForm;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +14,7 @@ public class AdoptionController {
 
 
     @PostMapping
-    public ResponseEntity<String> request(@RequestBody @Valid AdoptionForm form) {
+    public ResponseEntity<String> request(@RequestBody AdoptionForm form) {
         service.request(form);
         return ResponseEntity.ok().build();
     }

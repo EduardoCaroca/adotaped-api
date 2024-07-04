@@ -1,11 +1,9 @@
 package adotapet.api.adoption;
 
 import adotapet.api.adoption.payload.AdoptionForm;
+import adotapet.api.commom.domain.model.enums.AdoptionStatus;
 import adotapet.api.guardian.Guardian;
-import adotapet.api.model.enums.AdoptionStatus;
 import adotapet.api.pet.Pet;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +13,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
-@Table(name = "adocoes")
+@Table(name = "adoptions")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -27,14 +25,10 @@ public class Adoption {
 
     private LocalDateTime date;
 
-    @ManyToOne
-    @JsonBackReference("guardian_adoptions")
-    @JoinColumn(name = "guardian_id")
+    @ManyToOne(fetch = FetchType.LAZY)
     private Guardian guardian;
 
-    @OneToOne
-    @JoinColumn(name = "pet_id")
-    @JsonManagedReference("adoption_pets")
+    @OneToOne(fetch = FetchType.LAZY)
     private Pet pet;
 
     private String reason;

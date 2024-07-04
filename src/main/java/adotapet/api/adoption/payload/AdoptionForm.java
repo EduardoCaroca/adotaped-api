@@ -1,13 +1,14 @@
 package adotapet.api.adoption.payload;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 @Getter
 public class AdoptionForm {
-    @NotBlank
+    @NotNull
     private Long guardianId;
-    @NotBlank
+    @NotNull
     private Long petId;
     @NotBlank
     private String reason;
